@@ -133,9 +133,29 @@ Optimized for 2025 with:
 - **Vite Build:** Automatic content hashing for cache busting
 - **CloudFront:** Custom error responses (403/404 → index.html) for SPA routing
 
-### Deployment Commands
+### CI/CD Pipeline (GitHub Actions)
+**Automated Deployment:** Triggers on push/merge to `master` branch
+
+**Workflow File:** `.github/workflows/deploy.yml`
+- Install dependencies (npm ci)
+- Run linting (npm run lint)
+- Run tests (npm run test:run)
+- Build application (npm run build)
+- Deploy static assets with long-term cache headers
+- Deploy HTML with no-cache headers
+- CloudFront cache invalidation
+
+**IAM User:** `github-actions-deploy` (minimal permissions)
+- Policy: `GitHubActionsDeployPolicy`
+- Access: S3 bucket + CloudFront invalidation only
+
+**GitHub Secrets Required:**
+- `AWS_ACCESS_KEY_ID`: `AKIA3AIWFAS77EI4URGH`
+- `AWS_SECRET_ACCESS_KEY`: [configured in repo settings]
+
+### Manual Deployment Commands
 ```bash
-# Build and deploy
+# Manual build and deploy (if needed)
 npm run build
 aws s3 sync dist/ s3://shop-cormacoconnor-net --cache-control "max-age=31536000,public,immutable" --exclude "*.html"
 aws s3 sync dist/ s3://shop-cormacoconnor-net --cache-control "no-cache" --include "*.html"
@@ -173,3 +193,31 @@ Based on the original plan, these areas need development:
 - **Emoji Icons:** Used instead of icon libraries for simplicity
 - **Build Output:** Optimized chunks with ~1.6s build time
 - **CSS Architecture:** Modular imports prevent PostCSS warnings
+
+## Code Style Guidelines
+
+- **Emoji Usage:** Avoid excessive emoji usage in code and comments. Only use emojis if explicitly requested by the user
+- **Testing:** Tests should avoid emojis where possible and focus on functional text content
+- **JSX Only:** This project intentionally uses JSX instead of TypeScript for simplicity
+- **Linting:** ESLint configured for React/JSX with modern standards (ES2020+)
+
+## Quality Assurance
+
+### Linting Commands
+```bash
+npm run lint          # Check for linting errors
+npm run lint:fix      # Automatically fix linting issues where possible
+```
+
+### Testing Commands
+```bash
+npm run test          # Run tests in watch mode
+npm run test:run      # Run tests once
+npm run test:coverage # Run tests with coverage report
+```
+
+### Pre-Deployment Checklist
+1. Run `npm run lint` - ensure no linting errors
+2. Run `npm run test:run` - ensure all tests pass
+3. Run `npm run build` - ensure build succeeds
+4. Manual testing of key functionality
