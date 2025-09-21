@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [cartCount, setCartCount] = useState(0) // Will be replaced with context
+  const [cartCount] = useState(0) // Will be replaced with context
 
   return (
     <header className="header">
