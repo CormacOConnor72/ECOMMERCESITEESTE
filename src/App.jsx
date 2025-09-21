@@ -4,6 +4,7 @@ import Footer from './components/Footer'
 import HomePage from './components/HomePage'
 import ProductsPage from './components/ProductsPage'
 import CartPage from './components/CartPage'
+import AdminPage from './components/AdminPage'
 import './styles/index.css'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/admin" element={<AdminPage />} />
             <Route path="/collections" element={<div className="container p-4"><h2>Collections Coming Soon</h2></div>} />
             <Route path="/artist" element={<div className="container p-4"><h2>Artist Page Coming Soon</h2></div>} />
             <Route path="/about" element={<div className="container p-4"><h2>About Coming Soon</h2></div>} />

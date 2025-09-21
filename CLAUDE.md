@@ -70,6 +70,7 @@ Uses React Router v7 (latest) with simple flat routing structure. All routes def
 - `/` - HomePage
 - `/products` - ProductsPage (functional)
 - `/cart` - CartPage (functional)
+- `/admin` - AdminPage (functional - password: 123456)
 - `/collections`, `/artist`, `/about`, `/wishlist`, `/account` - Placeholder pages
 
 ## Netherlands eCommerce Requirements
@@ -176,15 +177,29 @@ To migrate to a different domain later:
 3. Update Route53 DNS records
 4. No S3 or infrastructure changes needed
 
+## Admin Panel
+
+**Access:** Navigate to `/admin` and use password `123456`
+
+**Features:**
+- Password-based authentication (simple plaintext for development)
+- Product creation form with all required fields
+- Real-time product list display
+- Form validation and error handling
+- Responsive design for mobile/desktop
+
+**Security Note:** Current implementation uses plaintext password for development only. For production, implement proper authentication with hashed passwords, session management, and role-based access control.
+
 ## Future Implementation Priorities
 
 Based on the original plan, these areas need development:
 1. **Payment Integration:** Mollie (primary) + Stripe (international)
 2. **User Authentication:** AWS Cognito integration
 3. **Cart Persistence:** localStorage or backend integration
-4. **Product Management:** Dynamic catalog (replace static data)
+4. **Product Management:** Connect admin panel to persistent backend storage
 5. **Wishlist Feature:** User-specific saved items
 6. **Artist Portfolio:** Showcase section for the clothing artist
+7. **Admin Security:** Implement proper authentication and authorization
 
 ## Development Notes
 
